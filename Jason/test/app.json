@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mobile-2",
+    "name": "test",
     "description": "An empty new project",
-    "slug": "mobile-2",
+    "slug": "test",
     "privacy": "public",
     "sdkVersion": "20.0.0",
     "version": "1.0.0",
