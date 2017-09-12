@@ -4,8 +4,12 @@ import {
   Text,
   View,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import axios from 'axios';
+
+const { width, height } = Dimensions.get('window');
+
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -26,18 +30,52 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.searchbar}>
         <Text>Enter your email address:</Text>
         <TextInput
-          style={{ width: 50 }}
+          style={styles.input1}
+          // placeHolder={'poop on a stick'}
           onChangeText={(email) => this.setState({ email })}
           value={this.state.email} />
         <Text>Enter your password:</Text>
         <TextInput
-          style={{ width: 50 }}
-          onChangeText={(email) => this.setState({ email })}
+          style={styles.input2}
+          onChangeText={(password) => this.setState({ password })}
           value={this.state.email} />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  searchbar: {
+    // flexDirection: 'row',
+    paddingTop: 2,
+  },
+  input1: {
+    height: 25,
+    borderWidth: 1,
+    // borderColor: 'red',
+    // backgroundColor: 'pink',
+    borderRadius: 20,
+    // marginLeft: 30,
+    marginRight: 5,
+    marginTop: 2,
+    marginBottom: 2,
+    width: width * .85,
+    padding: 8,
+  },
+  input2: {
+    height: 25,
+    borderWidth: 1,
+    // borderColor: 'red',
+    // backgroundColor: 'pink',
+    borderRadius: 20,
+    // marginLeft: 30,
+    marginRight: 5,
+    marginTop: 2,
+    marginBottom: 2,
+    width: width * .85,
+    padding: 8,
+  },
+});

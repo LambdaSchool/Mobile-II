@@ -35,8 +35,8 @@ export default class SignIn extends React.Component {
         <Text>Enter your password:</Text>
         <TextInput
           style={{ width: 50 }}
-          onChangeText={(email) => this.setState({ email })}
-          value={this.state.email} />
+          onChangeText={(password) => this.setState({ password })}
+          value={this.state.password} />
       </View>
     );
   }
