@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  Text, 
+import {
+  StyleSheet,
+  Text,
   View,
   FlatList
 } from 'react-native';
@@ -26,7 +26,7 @@ export default class Async extends React.Component {
   render() {
     return (
       <View>
-        <FlatList 
+        <FlatList
           data={this.state.posts}
           renderItem={({ item }) => {
             return <Text>{item.title}</Text>;

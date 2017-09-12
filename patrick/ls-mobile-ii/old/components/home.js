@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 });
 //
 const Routes = StackNavigator({
-//   Home: { screen: Home },
+  Home: { screen: Home },
   SignIn: { screen: SignIn },
   SignUp: { screen: SignUp },
   Content: { screen: Content },
