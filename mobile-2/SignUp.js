@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TextInput, Button } from 'react-native';
-
+import { StyleSheet, Text, View, FlatList, TextInput, Button, AsyncStorage } from 'react-native';
+import axios from 'axios';
+import Content from './Content';
 
 
 export default class SignUp extends React.Component {
@@ -17,24 +18,22 @@ export default class SignUp extends React.Component {
   }
   
   handleAuth() {
-    console.log('string')
     axios.post('https://mobile-server-ii.herokuapp.com/users', {
       email: this.state.email,
       password: this.state.password,
-    })
-    .then(function (response) {
+    }).then((response) => {
       if (response.data.code === 11000) {
         return this.setState({
-          // something here
+          error: 'Email already taken',
         });
       }
-      AsyncStorage.setItem('token', response.data.token).then(() => {
-        this.props.navigate('Content');
+      AsyncStorage.setItem('token', response.data.token)
+      .then(() => {
+        this.props.navigation.navigate('Content');
       })
-      .catch(function (error) {
-        console.log(error)
-      });
+      .catch(error => console.log(error))
     })
+    .catch(error => console.log(error))
   }
   render() {
     return (
@@ -53,9 +52,7 @@ export default class SignUp extends React.Component {
         />
         <Button
           title={'sign up'}
-          onPress={() => {
-            this.handleAuth
-            this.props.navigation.navigate('Content')}}
+          onPress={() => this.handleAuth}
         />
       </View>
     );

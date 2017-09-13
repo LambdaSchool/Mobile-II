@@ -50,7 +50,7 @@ const Routes = StackNavigator({
   Home: { screen: Home },
   SignIn: { screen: SignIn },
   SignUp: { screen: SignUp },
-
+  Content: { screen: Content },
 })
 
 export default Routes;
