@@ -21,19 +21,25 @@ export default class SignUp extends React.Component {
     };
   }
 
-  signUp() {
-    console.log(this.state);
-    axios.post('https://mobile-server-ii.herokuapp.com/users', {
-       email: this.state.email,
-       password: this.state.password,
-      }).then((response) => {
-      // Update state in here
-      // if (response.data.code === 11000)
-    });
-    AsyncStorage.setItem('token', response.data.token).then(() => {
-      this.props.navigate('Content');
-    });
-  }
+  // signUp() {
+  //   console.log(this.state);
+  //   axios.post('https://mobile-server-ii.herokuapp.com/users', {
+  //      email: this.state.email,
+  //      password: this.state.password,
+  //     }).then((response) => {
+  //     // Update state in here
+  //     if (response.data.code === 11000) {
+  //       return this.setState({
+  //         error: 'Email already taken',
+  //       });
+  //     }
+  //   AsyncStorage.setItem('token', response.data.token).then(() => {
+  //     this.props.navigate('Content');
+  //   });
+  // }).catch((error) => {
+  //   console.log(error);
+  // });
+  // }
 
   componentDidMount() {
     axios.post('https://mobile-server-ii.herokuapp.com/users').then((response) => {
@@ -56,13 +62,16 @@ export default class SignUp extends React.Component {
         <TextInput
           style={styles.input}
           onChangeText={(password) => this.setState({ password })}
-          value={this.state.pasword} />
-        <Button style={styles.button}
-          title={'Submit'}
-          onPress={this.signUp} />
-          {/* onPress={() => {
-            this.props.navigation.navigate('Signin');
-          }} /> */}
+          value={this.state.password} />
+          <Button 
+          title={'Sign Up'}
+          onPress={() => {
+          axios.post('https://mobile-server-ii.herokuapp.com/users', {
+          email: this.state.email,
+          password: this.state.password
+          })
+          .then(() => this.props.navigation.navigate('Content'));
+          }}        />
       </View>
     );
   }
