@@ -33,17 +33,19 @@ export default class SignUp extends React.Component {
     axios.post('https://mobile-server-ii.herokuapp.com/users', {
       email: this.state.email,
       password: this.state.password,
-    }).then((response) => {
+    })
+    .then((response) => {
+      console.log('line 38');
       if (response.data.code === 11000) {
         return this.setState({
           error: 'That email and password combo is no bueno for registering with our site, dood.',
         });
       }
-      AsyncStorage.setItem('token', response.data.token).then(() => {
-        this.props.navigation.navigate('Content');
-        // this.props.navigate('Content');
-      });
-    }).catch((error) => {
+      console.log('line 44', response.data);
+      AsyncStorage.setItem('token', response.data.token)
+      this.props.navigation.navigate('Content');
+    })
+    .catch((error) => {
       console.log(error);
     });
   }

@@ -49,13 +49,13 @@ class Home extends React.Component {
                 this.props.navigation.navigate('SignUp');
                 // navigateToContents('SignUp');
               }} />
-            <Button
+            {/* <Button
               style={styles.button}
               title={'Are You Authorized To View This Content, Agent Smith?'}
               onPress={() => {
                 this.props.navigation.navigate('Content');
                 // navigateToContents('Content');
-              }} />
+              }} /> */}
 
           </View>
           <Image
