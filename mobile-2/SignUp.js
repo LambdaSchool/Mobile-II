@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, FlatList, TextInput, Button, AsyncStorage } fro
 import axios from 'axios';
 import Content from './Content';
 
-
 export default class SignUp extends React.Component {
   static navigationOptions = {
     title: 'Sign Up Page',
@@ -14,13 +13,19 @@ export default class SignUp extends React.Component {
       email: '',
       password: '',
     };
+
     this.handleAuth = this.handleAuth.bind(this);
   }
-  
-  handleAuth() {
-    axios.post('https://mobile-server-ii.herokuapp.com/users', {
-      email: this.state.email,
-      password: this.state.password,
+
+  handleAuth(event) {
+    event.preventDefault();
+    axios({
+      method: 'post',
+      url: 'https://mobile-server-ii.herokuapp.com/users',
+      data: {
+        "email": this.state.email,
+        "password": this.state.password,
+      },
     }).then((response) => {
       if (response.data.code === 11000) {
         return this.setState({
@@ -51,11 +56,12 @@ export default class SignUp extends React.Component {
           value={this.state.password}
         />
         <Button
-          title={'sign up'}
-          onPress={() => this.handleAuth}
+          title="SignUp"
+          onPress={this.handleAuth}
         />
       </View>
     );
   }
 }
+
 // this.props.navigation.navigate
