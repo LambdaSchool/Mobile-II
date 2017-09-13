@@ -5,6 +5,7 @@ import {
   View,
   Button,
   TextInput,
+  AsyncStorage,
 } from 'react-native';
 import axios from 'axios';
 
@@ -15,10 +16,26 @@ class SignIn extends Component {
       email: '',
       password: ''
     };
+    this.signIn = this.signIn.bind(this);
+  }
+
+  signIn() {
+    const { email, password } = this.state;
+    axios.post('https://mobile-server-ii.herokuapp.com/signin', { email, password })
+    .then((response) => {
+      if (response.data.code === 11000) {
+        return this.setState({ error: 'That password is already in use.', });
+      }
+      AsyncStorage.setItem('token', response.data.token)
+      this.props.navigation.navigate('Content');
+      })
+      .catch((error => {
+      console.log(error);
+    }));
   }
   
   static navigationOptions = {
-    title: 'Sign In Page'
+    title: 'Sign In'
   }
 
   render() {
@@ -31,6 +48,7 @@ class SignIn extends Component {
           style={styles.inputField}
           onChangeText={(email) => this.setState({ email })}
           value={ this.state.email }
+          placeholder='Email'
         />
         <Text>
           Enter your password
@@ -39,14 +57,12 @@ class SignIn extends Component {
           style={styles.inputField}
           onChangeText={(password) => this.setState({ password })}
           value={ this.state.password }
+          placeholder='Password'
         />
         <Button 
-          title={'Sign In'}
+          title={'Submit'}
           onPress={() => {
-            axios.post('https://mobile-server-ii.herokuapp.com/signin', {
-              email: this.state.email,
-              password: this.state.password
-            });
+            this.signIn();
           }}
         />
       </View>

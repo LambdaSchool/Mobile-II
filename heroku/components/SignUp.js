@@ -5,6 +5,7 @@ import {
   View,
   Button,
   TextInput,
+  AsyncStorage,
 } from 'react-native';
 import axios from 'axios';
 
@@ -15,7 +16,28 @@ class SignUp extends Component {
       email: '',
       password: ''
     }
+    this.signUp = this.signUp.bind(this);
   }
+
+  signUp() {
+    const { email, password } = this.state;
+    axios.post('https://mobile-server-ii.herokuapp.com/users', { email, password })
+    .then((response) => {
+      if (response.data.code === 11000) {
+        return this.setState({ error: 'That email is already in use.', });
+      }
+      AsyncStorage.setItem('token', response.data.token)
+      this.props.navigation.navigate('Content');
+      })
+      .catch((error => {
+      console.log(error);
+    }));
+  }
+
+  static navigationOptions = {
+    title: 'Sign Up'
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -26,6 +48,7 @@ class SignUp extends Component {
           style={styles.inputField}
           onChangeText={(email) => this.setState({ email })}
           value={this.state.email}
+          placeholder='Email'
         />
         <Text>
           Please enter a password
@@ -34,15 +57,12 @@ class SignUp extends Component {
           style={styles.inputField}
           onChangeText={(password) => this.setState({ password })}
           value={this.state.password}
+          placeholder='Password'
         />
         <Button 
-          title={'Sign Up'}
+          title={'Submit'}
           onPress={() => {
-            axios.post('https://mobile-server-ii.herokuapp.com/users', {
-              email: this.state.email,
-              password: this.state.password
-            })
-            .then(() => this.props.navigation.navigate('Content'));
+            this.signUp();
           }}
         />
       </View>

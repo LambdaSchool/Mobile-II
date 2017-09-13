@@ -18,7 +18,12 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Welcome! Please SIGN IN or SIGN UP</Text>
+        <Text>
+          Welcome!
+        </Text>
+        <Text>
+          Please SIGN IN or SIGN UP
+        </Text>
         <Button 
           title={'Sign In'}
           onPress={() => {
@@ -29,6 +34,12 @@ class Home extends Component {
           title={'Sign Up'}
           onPress={() => {
             this.props.navigation.navigate('SignUp')
+          }}
+        />
+        <Button 
+          title={'Content'}
+          onPress={() => {
+            this.props.navigation.navigate('Content')
           }}
         />
       </View>
