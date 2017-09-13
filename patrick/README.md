@@ -90,8 +90,8 @@ AsyncStorage.getItem('token').then((token) => { // retrieve the token from "loca
 });
 ```
 Once you complete the basic requirements then work on covering edge cases.  A good starting point would be to add
-another password input to the `SignUp` component.  Notify the user if their second password doesn't match the first.
-Replace the characters in the password input fields with dots.
+another password input to the `SignUp` component.  Notify the user if their second password doesn't match the first. - DONE √
+Replace the characters in the password input fields with dots. - DONE √
 Show the user an error message if the email they provide is already in the database.
 If the user provides an incorrect email/password combo display an error message in the `SignIn` component.
 Note: Never tell a user that they entered an incorrect password, always say incorrect email or password.

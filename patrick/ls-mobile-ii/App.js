@@ -1,52 +1,68 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Button,
-  TextInput
+  Dimensions,
+  Image,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Content from './Content';
-import Async from './Async';
+
+const { width, height } = Dimensions.get('window');
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: ''
-    };
+    this.navigateToContents = this.navigateToContents.bind(this);
   }
 
   static navigationOptions = {
-    title: 'Home Page'
+    title: 'You\'re HOME',
+  }
+
+  navigateToContents(route) {
+    this.props.navigation.navigate(route);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {/* <Text>Enter your email address:</Text>
-        <TextInput
-          style={{ width: 50 }}
-          onChangeText={(email) => this.setState({ email })}
-          value={this.state.email} /> */}
-        <Button
-          title={'SignIn'}
-          onPress={() => {
-            this.props.navigation.navigate('SignIn');
-          }} />
-        <Button
-          title={'SignUp'}
-          onPress={() => {
-            this.props.navigation.navigate('SignUp');
-          }} />
-        <Button
-          title={'View Async Content'}
-          onPress={() => {
-            this.props.navigation.navigate('Async');
-          }} />
+        <Image
+          source={{ uri: 'https://media.tenor.com/images/7f7f2882899755a705a2953b6fcfc263/tenor.gif' }}
+          style={{ height: height, width: width, resizeMode: 'stretch' }}
+          >
+          <View style={styles.buttonList}>
+            <Button
+              style={styles.button}
+              title={'SignIn'}
+              onPress={() => {
+                this.props.navigation.navigate('SignIn');
+                // navigateToContents('SignIn');
+              }} />
+            <Button
+              style={styles.button}
+              title={'SignUp'}
+              onPress={() => {
+                this.props.navigation.navigate('SignUp');
+                // navigateToContents('SignUp');
+              }} />
+            <Button
+              style={styles.button}
+              title={'Are You Authorized To View This Content, Agent Smith?'}
+              onPress={() => {
+                this.props.navigation.navigate('Content');
+                // navigateToContents('Content');
+              }} />
+
+          </View>
+          <Image
+            style={{ height: height / 2, width: width, opacity: 1 }}
+            source={{uri: 'https://static.giantbomb.com/uploads/original/15/155745/2179153-18079_26016.gif'}}
+          />
+        </Image>
       </View>
     );
   }
@@ -54,10 +70,19 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    // flex: 1,
+    // backgroundColor: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
+  buttonList: {
     alignItems: 'center',
-    justifyContent: 'center',
+    opacity: .8,
+  },
+  button: {
+    borderWidth: 2,
+    borderColor: 'green',
+    borderRadius: 20,
   },
 });
 
@@ -66,7 +91,6 @@ const Routes = StackNavigator({
   SignIn: { screen: SignIn },
   SignUp: { screen: SignUp },
   Content: { screen: Content },
-  Async: { screen: Async },
 });
 
 export default Routes;
