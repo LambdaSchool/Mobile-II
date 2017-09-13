@@ -20,6 +20,11 @@ class Home extends React.Component {
     };
   }
 
+  handlePress() {
+    AsyncStorage.setItem('token', response.data.token).then(() => {
+      this.props.navigate('Content');
+    });
+  }
   static navigationOptions = {
     title: 'Home Page'
   }
