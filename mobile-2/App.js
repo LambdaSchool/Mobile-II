@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
+import Content from './Content';
 
 class Home extends React.Component {
   constructor(props) {
@@ -23,7 +25,14 @@ class Home extends React.Component {
             this.props.navigation.navigate('SignIn')
           }}
         />
+        <Button
+          title = {'SignUp'}
+          onPress = {() => {
+            this.props.navigation.navigate('SignUp')
+          }}
+        />
       </View>
+
     );
   }
 }
@@ -40,6 +49,7 @@ const styles = StyleSheet.create({
 const Routes = StackNavigator({
   Home: { screen: Home },
   SignIn: { screen: SignIn },
+  SignUp: { screen: SignUp },
 
 })
 
