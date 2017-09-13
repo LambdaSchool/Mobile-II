@@ -1,11 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import Content from './Content';
 
-export default class App extends React.Component {
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Text>Welcome to the app!</Text>
+        <Button 
+          title="Sign up!"
+          onPress={() => this.props.navigation.navigate('SignUp')} />
+        <Button
+          title="Sign in!"
+          onPress={() => this.props.navigation.navigate('SignIn')} />
       </View>
     );
   }
@@ -19,3 +32,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const Routes = StackNavigator({
+  Home: { screen: Home },
+  SignIn: { screen: SignIn },
+  SignUp: { screen: SignUp },
+  Content: { screen: Content },
+});
+
+export default Routes;
