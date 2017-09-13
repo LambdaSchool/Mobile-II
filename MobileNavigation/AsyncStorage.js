@@ -16,7 +16,7 @@ export default class AsyncStorage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://mobile-server-ii.herokuapp.com/posts').then((response) => {
+    axios.get('https://mobile-server-ii.herokuapp.com/users').then((response) => {
       this.setState({
         posts: response,
       });
