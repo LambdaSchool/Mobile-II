@@ -24,14 +24,15 @@ class SignUp extends Component {
     axios.post('https://mobile-server-ii.herokuapp.com/users', { email, password })
     .then((response) => {
       if (response.data.code === 11000) {
-        return this.setState({ error: 'That email is already in use.', });
+        return this.setState({ error: 'That email is already in use.' });
       }
       AsyncStorage.setItem('token', response.data.token)
-      this.props.navigation.navigate('Content');
+      .then(() => {
+        this.props.navigation.navigate('Content');
       })
-      .catch((error => {
+    }).catch((error) => {
       console.log(error);
-    }));
+    });
   }
 
   static navigationOptions = {

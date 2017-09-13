@@ -36,12 +36,6 @@ class Home extends Component {
             this.props.navigation.navigate('SignUp')
           }}
         />
-        <Button 
-          title={'Content'}
-          onPress={() => {
-            this.props.navigation.navigate('Content')
-          }}
-        />
       </View>
     );
   }
