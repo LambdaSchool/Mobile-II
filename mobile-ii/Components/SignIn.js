@@ -35,10 +35,13 @@ export default class SignIn extends React.Component {
         <Text>{this.state.error ? this.state.error : null}</Text>
         <TextInput 
           style={styles.textInput}
+          placeholder="Email"
           onChangeText={(email) => this.setState({email})}
           value={this.state.email} />
         <TextInput
           style={styles.textInput}
+          placeholder="Password"
+          secureTextEntry={true}
           onChangeText={(password) => this.setState({password})}
           value={this.state.password} />
         <Button
