@@ -9,6 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 
+const axios = require('axios');
 import styles from './Styles';
 
 export default class TodoList extends React.Component {
@@ -20,16 +21,31 @@ export default class TodoList extends React.Component {
 
   componentDidMount() {
     console.log('is Mounted');
-    const myList = AsyncStorage.getItem('tasks');
-    myList
-      .then(res => {
-        if (res !== null) {
-          this.setState(prevState => {
-            let tasks = JSON.parse(res);
-            return {
-              tasks,
-            };
-          });
+    const tasks = this.state.tasks;
+
+    const myToken = AsyncStorage.getItem('token');
+    myToken
+      .then(token => {
+        // retrieve the token from "localStorage"
+        if (token !== null) {
+          axios
+            .get('https://mobile-server-ii.herokuapp.com/user', {
+              headers: {
+                Authorization: token, // attach the token as a header
+              },
+            })
+            .then(response => {
+              this.setState(prevState => {
+                let { tasks } = prevState;
+                return {
+                  tasks: response.data.todos,
+                };
+              });
+            })
+
+            .catch(error => {
+              console.log(error);
+            });
         }
       })
       .catch(err => {
@@ -39,8 +55,38 @@ export default class TodoList extends React.Component {
 
   componentWillUnmount() {
     console.log('is Un Mounted');
-    const tasks = this.state.tasks.slice();
-    AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+    const myToken = AsyncStorage.getItem('token');
+    const tasks = this.state.tasks.text;
+    // user.todos.setItem('tasks', JSON.stringify(tasks));
+    myToken
+      .then(token => {
+        // retrieve the token from "localStorage"
+        if (token !== null) {
+          axios
+            .post('https://mobile-server-ii.herokuapp.com/user', {
+              headers: {
+                Authorization: token, // attach the token as a header
+              },
+              body: {
+                text: tasks,
+              },
+            })
+            .then(response => {
+              this.setState(prevState => {
+                let { tasks } = prevState;
+                return {
+                  tasks: response.todos,
+                };
+              });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      })
+      .catch(err => {
+        console.log('On did Mount', err);
+      });
   }
 
   handleTextChange = text => {
@@ -84,6 +130,7 @@ export default class TodoList extends React.Component {
         </Text>
         {this.state.error !== '' ? <Text>{this.state.error}</Text> : null}
         <FlatList
+          keyExtractor={item => item._id}
           style={styles.list}
           data={this.state.tasks}
           renderItem={({ item, index }) => {

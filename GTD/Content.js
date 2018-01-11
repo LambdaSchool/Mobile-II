@@ -64,11 +64,12 @@ export default class SignUp extends React.Component {
             <Text>USERSSSSSSSS</Text>
             {this.state.error !== '' ? <Text>{this.state.error}</Text> : null}
             <FlatList
+              keyExtractor={item => item.email}
               style={styles.list}
               data={this.state.tasks}
               renderItem={({ item, index }) => {
                 return (
-                  <View key={item._id}>
+                  <View>
                     <View style={styles.listCont}>
                       <Text style={styles.textItem}>{item.email}</Text>
                       <Button

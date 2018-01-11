@@ -11,6 +11,7 @@ import {
   Form,
 } from 'react-native';
 import styles from './Styles';
+import TodoList from './TodoList';
 
 const axios = require('axios');
 
@@ -64,7 +65,7 @@ export default class SignIn extends React.Component {
           AsyncStorage.setItem('token', token)
             .then(AsyncRes => {
               // route to Todos
-              this.props.navigation.navigate('Content');
+              this.props.navigation.navigate('TodoList');
             })
             .catch(err => {
               throw new Error(err);
