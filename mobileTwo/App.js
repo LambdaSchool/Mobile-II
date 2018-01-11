@@ -1,14 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import { 
+  StyleSheet, 
+  Text, 
+  View,
+  Button,
+} from 'react-native';
+import ToDoList from './components/ToDoList';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
-export default class App extends React.Component {
+class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+        <Text>To Do List</Text>
+        <Button
+          title={'Sign Up'}
+          onPress={() => {
+            this.props.navigation.navigate('SignUp');
+          }} />
+        <Button
+          title={'Sign In'}
+          onPress={() => {
+            this.props.navigation.navigate('SignIn');
+          }} />
+        </View>
     );
   }
 }
@@ -21,3 +38,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const Routes = StackNavigator({
+  Home: { screen: Home },
+  ToDoList: { screen: ToDoList },
+  SignUp: { screen: SignUp },
+  SignIn: { screen: SignIn },
+});
+
+export default Routes;
