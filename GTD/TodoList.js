@@ -43,6 +43,9 @@ export default class TodoList extends React.Component {
               });
               console.log('tasks', this.state.tasks);
             })
+            .then(() = > {
+              
+            })
             .catch(error => {
               console.log(error);
             });
@@ -70,18 +73,13 @@ export default class TodoList extends React.Component {
         console.log('retrieved the token from "localStorage"');
         if (token !== null) {
           axios
-            .put(
-              `https://mobile-server-ii.herokuapp.com/${id}`,
-              {
-                text: this.state.text,
+            .put(`https://mobile-server-ii.herokuapp.com/todos/${id}`, {
+              headers: {
+                authorization: token,
               },
-              {
-                headers: {
-                  authorization: token,
-                },
-              }
-            )
+            })
             .then(response => {
+              console.log(response);
               this.props.navigation.navigate('TodoList');
             })
             .catch(error => {
@@ -188,7 +186,7 @@ export default class TodoList extends React.Component {
                   <Button
                     color="green"
                     onPress={() => this.editTodo(index)}
-                    title="Edit"
+                    title={status}
                   />
                 </View>
                 <View style={styles.hr} />
