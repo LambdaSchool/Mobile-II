@@ -41,8 +41,8 @@ export default class TodoList extends React.Component {
                   tasks: response.data.todos,
                 };
               });
+              console.log('tasks', this.state.tasks);
             })
-
             .catch(error => {
               console.log(error);
             });
@@ -55,29 +55,34 @@ export default class TodoList extends React.Component {
 
   componentWillUnmount() {
     console.log('is Un Mounted');
+  }
+
+  handleTextChange = text => {
+    this.setState({ text });
+  };
+
+  editTodo = index => {
     const myToken = AsyncStorage.getItem('token');
-    const tasks = this.state.tasks.text;
-    // user.todos.setItem('tasks', JSON.stringify(tasks));
+    const id = this.state.tasks[index]._id;
+    console.log(id);
     myToken
       .then(token => {
-        // retrieve the token from "localStorage"
+        console.log('retrieved the token from "localStorage"');
         if (token !== null) {
           axios
-            .post('https://mobile-server-ii.herokuapp.com/user', {
-              headers: {
-                Authorization: token, // attach the token as a header
+            .put(
+              `https://mobile-server-ii.herokuapp.com/${id}`,
+              {
+                text: this.state.text,
               },
-              body: {
-                text: tasks,
-              },
-            })
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            )
             .then(response => {
-              this.setState(prevState => {
-                let { tasks } = prevState;
-                return {
-                  tasks: response.todos,
-                };
-              });
+              this.props.navigation.navigate('TodoList');
             })
             .catch(error => {
               console.log(error);
@@ -87,14 +92,10 @@ export default class TodoList extends React.Component {
       .catch(err => {
         console.log('On did Mount', err);
       });
-  }
-
-  handleTextChange = text => {
-    this.setState({ text });
   };
 
   addTodo = () => {
-    console.log('clicked');
+    console.log('is sending to DB');
     if (this.state.text === '') {
       this.setState({ error: `No message in text field.` });
       setTimeout(() => {
@@ -102,21 +103,62 @@ export default class TodoList extends React.Component {
       }, 2000);
       return;
     }
-    this.setState(prevState => {
-      let { text, tasks } = prevState;
-      return {
-        tasks: tasks.concat({ key: tasks.length, text }),
-        text: '',
-      };
-    });
+    const myToken = AsyncStorage.getItem('token');
+    myToken
+      .then(token => {
+        console.log('retrieved the token from "localStorage"');
+        if (token !== null) {
+          axios
+            .post(
+              'https://mobile-server-ii.herokuapp.com/todos',
+              {
+                text: this.state.text,
+              },
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            )
+            .then(response => {
+              this.props.navigation.navigate('TodoList');
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      })
+      .catch(err => {
+        console.log('On did Mount', err);
+      });
   };
 
   deleteTask = index => {
-    this.setState(prevState => {
-      let tasks = prevState.tasks.slice();
-      tasks.splice(index, 1);
-      return { tasks };
-    });
+    const myToken = AsyncStorage.getItem('token');
+    const id = this.state.tasks[index]._id;
+    console.log(id);
+    myToken
+      .then(token => {
+        console.log('retrieved the token from "localStorage"');
+        if (token !== null) {
+          axios
+            .delete(`https://mobile-server-ii.herokuapp.com/todos/${id}`, {
+              headers: {
+                authorization: token,
+              },
+            })
+            .then(response => {
+              console.log(response);
+              this.props.navigation.navigate('TodoList');
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      })
+      .catch(err => {
+        console.log('On did Mount', err);
+      });
   };
 
   render() {
@@ -138,7 +180,16 @@ export default class TodoList extends React.Component {
               <View>
                 <View style={styles.listCont}>
                   <Text style={styles.textItem}>{item.text}</Text>
-                  <Button onPress={() => this.deleteTask(index)} title="X" />
+                  <Button
+                    color="red"
+                    onPress={() => this.deleteTask(index)}
+                    title="Delete"
+                  />
+                  <Button
+                    color="green"
+                    onPress={() => this.editTodo(index)}
+                    title="Edit"
+                  />
                 </View>
                 <View style={styles.hr} />
               </View>

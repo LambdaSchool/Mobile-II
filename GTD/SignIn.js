@@ -86,7 +86,7 @@ export default class SignIn extends React.Component {
         <Text style={styles.buttonText}>Email</Text>
         <TextInput
           style={styles.inputStyles}
-          onSubmitEditing={this.addTodo}
+          onSubmitEditing={this.createUser}
           onChangeText={this.handleEmailChange}
           value={this.state.text}
           placeholder="Email"
@@ -94,7 +94,7 @@ export default class SignIn extends React.Component {
         <Text style={styles.buttonText}>Password</Text>
         <TextInput
           style={styles.inputStyles}
-          onSubmitEditing={this.addTodo}
+          onSubmitEditing={this.createUser}
           onChangeText={this.handlePasswordChange}
           value={this.state.text}
           placeholder="Password"
