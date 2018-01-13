@@ -37,14 +37,12 @@ export default class TodoList extends React.Component {
             .then(response => {
               this.setState(prevState => {
                 let { tasks } = prevState;
+                console.log(response.data.todos);
                 return {
                   tasks: response.data.todos,
                 };
               });
               console.log('tasks', this.state.tasks);
-            })
-            .then(() = > {
-              
             })
             .catch(error => {
               console.log(error);
@@ -67,17 +65,21 @@ export default class TodoList extends React.Component {
   editTodo = index => {
     const myToken = AsyncStorage.getItem('token');
     const id = this.state.tasks[index]._id;
-    console.log(id);
+    console.log(id, index);
     myToken
       .then(token => {
         console.log('retrieved the token from "localStorage"');
         if (token !== null) {
           axios
-            .put(`https://mobile-server-ii.herokuapp.com/todos/${id}`, {
-              headers: {
-                authorization: token,
-              },
-            })
+            .put(
+              `https://mobile-server-ii.herokuapp.com/todos/${id}`,
+              {},
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            )
             .then(response => {
               console.log(response);
               this.props.navigation.navigate('TodoList');
@@ -160,7 +162,6 @@ export default class TodoList extends React.Component {
   };
 
   render() {
-    // console.log(this.state);
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
@@ -174,6 +175,16 @@ export default class TodoList extends React.Component {
           style={styles.list}
           data={this.state.tasks}
           renderItem={({ item, index }) => {
+            let statuss = () => {
+              if (this.state.tasks[index].completed === true) {
+                return 'Complete';
+              } else {
+                return 'Incomplete';
+              }
+            };
+            let status = statuss();
+            console.log(status);
+            console.log(Object.values(this.state.tasks[index]));
             return (
               <View>
                 <View style={styles.listCont}>
