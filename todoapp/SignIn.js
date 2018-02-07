@@ -4,7 +4,9 @@ import {
     Text,
     TextInput,
     Button,
-    AsyncStorage
+    AsyncStorage,
+    TouchableOpacity,
+    StyleSheet
 } from 'react-native';
 import axios from 'axios';
 
@@ -43,12 +45,32 @@ export default class SignIn extends React.Component {
 
     render () {
         return (
-            <View>
+            <View style={container}>
                 <Text>Log In Screen</Text>
                 <TextInput onChangeText={(text) => this.setState({ email: text })} placeholder = 'Enter Your Email Address' />
                 <TextInput onChangeText={(text) => this.setState({ password: text })} placeholder = 'Enter Your Password' />
-                <Button onPress={this.handleButtonSubmit.bind(this)} title='Sign In' />
+                <TouchableOpacity onPress={this.handleButtonSubmit.bind(this)} style={button}>
+                    <Text>Sign In</Text>
+                </TouchableOpacity>
             </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    button : {
+      alignItems: 'center',
+      height: 48,
+      width: 200,
+      padding: 10,
+      margin: 10,
+      backgroundColor: '#add8e6',
+    },
+  
+  });
+  const { container, button } = styles;

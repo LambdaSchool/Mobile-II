@@ -4,7 +4,9 @@ import {
     Text,
     TextInput,
     Button,
-    AsyncStorage
+    AsyncStorage,
+    TouchableOpacity,
+    StyleSheet
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios';
@@ -39,14 +41,34 @@ class SignUp extends React.Component {
 
     render () {
         return (
-            <View>
+            <View style={container}>
                 <Text>Sign Up Screen</Text>
                 <TextInput onChangeText={(text) => this.setState({ email: text}) } placeholder = 'Enter Your Email Address' />
                 <TextInput onChangeText={(text) => this.setState({ password: text }) } placeholder = 'Enter Your Password' />
-                <Button onPress={this.handleButtonSubmit.bind(this)} title='Create Account' />
+                <TouchableOpacity onPress={this.handleButtonSubmit.bind(this)} style = {button}>
+                    <Text>Create Account</Text>
+                </TouchableOpacity>
             </View>
         );
     }
+    
 }
-
+        const styles = StyleSheet.create({
+            container: {
+              flex: 1,
+              backgroundColor: '#fff',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+            button : {
+              alignItems: 'center',
+              height: 48,
+              width: 200,
+              padding: 10,
+              margin: 10,
+              backgroundColor: '#add8e6',
+            },
+          
+          });
+          const { container, button } = styles;
 export default SignUp;
