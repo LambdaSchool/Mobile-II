@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { SignIn, SignUp } from './components/index';
 
@@ -7,8 +7,18 @@ const App = (props) => {
   return (
     <View style={container}>
       <View style={buttonWrapper}>
-        <Button style={button} title="Sign In" onPress={() => props.navigation.navigate('SignIn')}/>
-        <Button style={button} title="Sign Up" onPress={() => props.navigation.navigate('SignUp')}/>
+        <TouchableOpacity 
+          style={button} 
+          onPress={() => props.navigation.navigate('SignIn')} 
+        >
+          <Text style={buttonText}>Sign In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={button} 
+          onPress={() => props.navigation.navigate('SignUp')} 
+        >
+          <Text style={buttonText}>Sign Up</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -22,15 +32,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonWrapper: {
-    justifyContent: 'space-around'
+    flex: 1,
+    justifyContent: 'center'
   },
   button: {
+    padding: 20,
+    margin: 20,
     borderWidth: 1,
     borderColor: '#000',
+    borderRadius: 10,
+    backgroundColor: '#4CAF50'
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+    alignItems: 'center'
   }
 });
 
-const { container, buttonWrapper, button } = styles;
+const { container, buttonWrapper, button, buttonText } = styles;
 
 const Routes = StackNavigator({
   Home: { screen: App },
