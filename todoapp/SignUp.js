@@ -43,8 +43,8 @@ class SignUp extends React.Component {
         return (
             <View style={container}>
                 <Text>Sign Up Screen</Text>
-                <TextInput onChangeText={(text) => this.setState({ email: text}) } placeholder = 'Enter Your Email Address' />
-                <TextInput onChangeText={(text) => this.setState({ password: text }) } placeholder = 'Enter Your Password' />
+                <TextInput onChangeText={(text) => this.setState({ email: text}) } placeholder = 'Enter Your Email Address' style = {input} />
+                <TextInput onChangeText={(text) => this.setState({ password: text }) } placeholder = 'Enter Your Password' style = {input} />
                 <TouchableOpacity onPress={this.handleButtonSubmit.bind(this)} style = {button}>
                     <Text>Create Account</Text>
                 </TouchableOpacity>
@@ -60,6 +60,10 @@ class SignUp extends React.Component {
               alignItems: 'center',
               justifyContent: 'center',
             },
+            input: {
+                margin: 10,
+                width: 200,
+            },
             button : {
               alignItems: 'center',
               height: 48,
@@ -70,5 +74,5 @@ class SignUp extends React.Component {
             },
           
           });
-          const { container, button } = styles;
+          const { container, input, button } = styles;
 export default SignUp;

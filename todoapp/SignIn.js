@@ -47,8 +47,8 @@ export default class SignIn extends React.Component {
         return (
             <View style={container}>
                 <Text>Log In Screen</Text>
-                <TextInput onChangeText={(text) => this.setState({ email: text })} placeholder = 'Enter Your Email Address' />
-                <TextInput onChangeText={(text) => this.setState({ password: text })} placeholder = 'Enter Your Password' />
+                <TextInput onChangeText={(text) => this.setState({ email: text })} placeholder = 'Enter Your Email Address' style={input} />
+                <TextInput onChangeText={(text) => this.setState({ password: text })} placeholder = 'Enter Your Password' style={input} />
                 <TouchableOpacity onPress={this.handleButtonSubmit.bind(this)} style={button}>
                     <Text>Sign In</Text>
                 </TouchableOpacity>
@@ -63,6 +63,10 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    input: {
+        margin: 10,
+        width: 200,
+    },
     button : {
       alignItems: 'center',
       height: 48,
@@ -73,4 +77,4 @@ const styles = StyleSheet.create({
     },
   
   });
-  const { container, button } = styles;
+  const { container, input, button } = styles;
