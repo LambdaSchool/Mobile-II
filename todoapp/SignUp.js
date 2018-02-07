@@ -6,11 +6,13 @@ import {
     Button,
     AsyncStorage
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import axios from 'axios';
+import Content from './Content';
 
 const ROOT_URL = 'https://mobile-server-ii.herokuapp.com/';
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -26,19 +28,22 @@ export default class SignUp extends React.Component {
         const password = this.state.password;
         axios
             .post(`${ROOT_URL}/users`, { email, password })
-            .then(jwt => {
-                AsyncStorage.setItem('authorization', JSON.stringify(jwt), error => {
+            .then(res => {
+                AsyncStorage.setItem('token', res.data.token, error => {
                     if(error) {
                         console.log('Error saving JWT: ', error);
                     } else {
                         console.log('yeah BB');
                     }
+                })
+                .then(() => {
+                    this.props.navigation.navigate('Content');
                 });
 
             })
             .catch(error => {
                 console.log('Error saving User to DB: ', error);
-            });
+            }); 
 
     };
 
@@ -53,3 +58,10 @@ export default class SignUp extends React.Component {
         );
     }
 }
+
+const Path = StackNavigator({
+    Home : { screen: SignUp },
+    Content : { screen: Content },
+});
+
+export default Path;
