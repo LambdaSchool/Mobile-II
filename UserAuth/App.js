@@ -1,15 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import { SignIn, SignUp } from './components/index';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button title="Sign In"/>
-        <Button title="Sign Up"/>
+const App = (props) => {
+  return (
+    <View style={container}>
+      <View style={buttonWrapper}>
+        <Button style={button} title="Sign In" onPress={() => props.navigation.navigate('SignIn')}/>
+        <Button style={button} title="Sign Up" onPress={() => props.navigation.navigate('SignUp')}/>
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -19,4 +21,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttonWrapper: {
+    justifyContent: 'space-around'
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: '#000',
+  }
 });
+
+const { container, buttonWrapper, button } = styles;
+
+const Routes = StackNavigator({
+  Home: { screen: App },
+  SignUp: { screen: SignUp },
+  SignIn: { screen: SignIn }
+});
+
+export default Routes;
+
