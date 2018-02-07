@@ -1,9 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { SignIn, SignUp } from './components/index';
+import { SignIn, SignUp, Content } from './components/index';
 
 const App = (props) => {
+  navigationOptions = {
+    header: {
+      visible: false,
+    }
+  };
   return (
     <View style={container}>
       <View style={buttonWrapper}>
@@ -56,7 +61,8 @@ const { container, buttonWrapper, button, buttonText } = styles;
 const Routes = StackNavigator({
   Home: { screen: App },
   SignUp: { screen: SignUp },
-  SignIn: { screen: SignIn }
+  SignIn: { screen: SignIn },
+  Content: { screen: Content }
 });
 
 export default Routes;
