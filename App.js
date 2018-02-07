@@ -1,14 +1,35 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { StackNavigator } from 'react-navigation';
+import authentication from './components/Auth/AuthReducer';
+import Home from './components/Home';
+import SignIn from './components/Auth/SignIn';
+import SignUp from './components/Auth/SignUp';
+import Content from './components/Content';
 
+const rootReducer = combineReducers({authentication});
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
+const RootStack = StackNavigator(
+  {
+    SignIn: {screen: SignIn},
+    SignUp: {screen: SignUp},
+    Home: {screen: Home},
+    Content: {screen: Content}
+  },
+  {
+    initialRouteName: 'Home'
+  }
+);
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
     );
   }
 }
