@@ -21,7 +21,23 @@ class SignUp extends React.Component {
     }
 
     handleButtonSubmit() {
-        this.props.navigation.navigate('Content');
+        console.log('test')
+        const email = this.state.email;
+        const password = this.state.password;
+        axios
+            .post(`${ROOT_URL}/users`, { email, password })
+            .then(res => {
+                console.log('test2')
+                AsyncStorage.setItem('token', res.data.token)
+                .then(() => {
+                    console.log('test3');
+                    this.props.navigation.navigate('Content');
+                })
+                .catch(error => console.log('Problem saving token: ', error))
+            })
+            .catch(error => {
+                if (error) console.log('Error: ', error);
+            });
     };
 
     render () {
