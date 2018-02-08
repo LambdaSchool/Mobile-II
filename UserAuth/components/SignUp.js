@@ -63,13 +63,11 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 20,
     borderBottomWidth: 1,
-    width: '50%'
+    width: '70%'
   },
   button: {
     padding: 20,
     margin: 20,
-    borderWidth: 1,
-    borderColor: '#000',
     borderRadius: 10,
     backgroundColor: '#4CAF50'
   },

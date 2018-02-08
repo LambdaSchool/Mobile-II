@@ -30,6 +30,7 @@ class SignIn extends Component {
         if (token !== res.data.token) return AsyncStorage.setItem('token', res.data.token);
         if (!currentUser) return AsyncStorage.setItem('currentUser', JSON.stringify(currentUser));
         if (currentUser.email !== res.data.user.email) return AsyncStorage.setItem('currentUser', JSON.stringify(res.data.user));
+        this.setState({ email: '', password: '' });
       })
       .then(() => {
         this.props.navigation.navigate('Content');
@@ -79,13 +80,11 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 20,
     borderBottomWidth: 1,
-    width: '50%'
+    width: '70%'
   },
   button: {
     padding: 20,
     margin: 20,
-    borderWidth: 1,
-    borderColor: '#000',
     borderRadius: 10,
     backgroundColor: '#4CAF50'
   },

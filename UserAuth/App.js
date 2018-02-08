@@ -1,16 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { SignIn, SignUp, Content } from './components/index';
 
 const App = (props) => {
-  navigationOptions = {
-    header: {
-      visible: false,
-    }
-  };
   return (
     <View style={container}>
+      <Text style={header}>Todo List</Text>
       <View style={buttonWrapper}>
         <TouchableOpacity 
           style={button} 
@@ -24,6 +20,12 @@ const App = (props) => {
         >
           <Text style={buttonText}>Sign Up</Text>
         </TouchableOpacity>
+        <TouchableOpacity 
+          style={button} 
+          onPress={() => props.navigation.navigate('Content')} 
+        >
+          <Text style={buttonText}>Todos</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -36,6 +38,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  header: {
+    fontSize: 50,
+    marginTop: 20
+  },
   buttonWrapper: {
     flex: 1,
     justifyContent: 'center'
@@ -43,8 +49,6 @@ const styles = StyleSheet.create({
   button: {
     padding: 20,
     margin: 20,
-    borderWidth: 1,
-    borderColor: '#000',
     borderRadius: 10,
     backgroundColor: '#4CAF50'
   },
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const { container, buttonWrapper, button, buttonText } = styles;
+const { container, header, buttonWrapper, button, buttonText } = styles;
 
 const Routes = StackNavigator({
   Home: { screen: App },
