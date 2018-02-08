@@ -4,11 +4,13 @@ import {
     Text,
     TextInput,
     Button,
+    Image,
     AsyncStorage,
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
 import axios from 'axios';
+import logo from './images/improvement2.png';
 
 const ROOT_URL = 'https://mobile-server-ii.herokuapp.com';
 
@@ -46,6 +48,7 @@ export default class SignIn extends React.Component {
     render () {
         return (
             <View style={container}>
+                <Image source={logo} style={icon}/>
                 <Text>Log In Screen</Text>
                 <TextInput onChangeText={(text) => this.setState({ email: text })} placeholder = 'Enter Your Email Address' style={input} />
                 <TextInput onChangeText={(text) => this.setState({ password: text })} placeholder = 'Enter Your Password' style={input} />
@@ -63,6 +66,10 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    icon: {
+        alignItems: 'flex-start',
+        marginTop: -100,
+    },
     input: {
         margin: 10,
         width: 200,
@@ -77,4 +84,4 @@ const styles = StyleSheet.create({
     },
   
   });
-  const { container, input, button } = styles;
+  const { container, icon, input, button } = styles;
