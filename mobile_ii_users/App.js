@@ -6,6 +6,7 @@ import styles from './components/Styles';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Contents from './components/Contents';
+import TodoList from './components/TodoList';
 import Headers from './components/Headers';
 
 class Home extends Component {
@@ -24,6 +25,7 @@ class Home extends Component {
           <Button style={styles.button} title='Sign In' onPress={() => this.props.navigation.navigate('SignIn')} />
           <Button style={styles.button} title='Sign Up' onPress={() => this.props.navigation.navigate('SignUp')} />
           <Button style={styles.button} title='Contents' onPress={() => this.props.navigation.navigate('Contents')} />
+          <Button style={styles.button} title='Todo List' onPress={() => this.props.navigation.navigate('TodoList')} />
         </View>
       </View>
     );
@@ -54,13 +56,19 @@ const Routes = StackNavigator({
       headerTitle: <Headers.ContentsHeader />
     }
   },
-},
-  { // This Hides the Nav Bar Ontop
-    headerMode: 'none',
+  TodoList: {
+    screen: TodoList,
     navigationOptions: {
-      headerVisible: false,
+      headerTitle: <Headers.TodoListHeader />
     }
-  }
+  },
+},
+  // { // This Hides the Nav Bar Ontop
+  //   headerMode: 'none',
+  //   navigationOptions: {
+  //     headerVisible: false,
+  //   }
+  // }
 );
 
 export default class App extends Component {

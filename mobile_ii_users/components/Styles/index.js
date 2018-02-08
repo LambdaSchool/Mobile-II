@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default styles = StyleSheet.create({
     container: {
@@ -22,7 +22,7 @@ export default styles = StyleSheet.create({
     },
     buttonWrapper: {
         flexDirection: 'row',
-        width: '80%',
+        width: '90%',
         justifyContent: 'space-around',
     },
     button: {
@@ -54,6 +54,37 @@ export default styles = StyleSheet.create({
         underlineColorAndroid: 'transparent',
         marginTop: 10,
         marginBottom: 10,
+    },
+    contentList: {
+        height: '100%',
+    },
+    textFont: {
+        fontSize: 28
+    },
+    inputBox: {
+        width: 300,
+        height: 40,
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 20,
+        marginTop: 40,
+    },
+    uncomplete: {
+        marginTop: 20,
+        fontSize: 30,
+        fontWeight: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 40,
+
+    },
+    completed: {
+        marginTop: 20,
+        fontSize: 30,
+        fontWeight: '900',
+        textDecorationLine: 'line-through',
+        fontStyle: 'italic',
+        lineHeight: 40,
     },
 
 });

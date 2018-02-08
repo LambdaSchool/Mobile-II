@@ -16,23 +16,20 @@ class Contents extends Component {
         AsyncStorage.getItem('JWT', (err, result) => {
             if (err) console.log(err);
             JWT = String(result);
-            console.log(JWT)
             axios.get(postUrl, { headers: { authorization: JWT } })
                 .then(res => {
-                    console.log(res.data)
                     this.setState({ users: res.data });
                 })
                 .catch(err => {
-
+                    console.log('Could not set users to state');
                 });
         });
-
     }
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.formHeader}>This is the Contents Page</Text>
-                <ScrollView>
+                <Text style={styles.formHeader}>This the Members List</Text>
+                <ScrollView style={styles.contentList}>
                     <FlatList keyExtractor={(item) => item._id} data={this.state.users} renderItem={({ item }) => {
                         return <Text key={item._id}>{item.email}</Text>;
                     }} />
