@@ -27,7 +27,8 @@ class SignIn extends React.Component {
   submit = async () => {
     const { email, password } = this.state;
     try {
-      await this.props.signIn({email, password});
+      const token = await this.props.signIn({email, password});
+      console.log('awaited token: ', token);
       this.successAlert();
       this.props.navigation.navigate('Home');
     } catch(error) {

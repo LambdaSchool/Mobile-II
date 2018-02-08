@@ -22,7 +22,6 @@ class Home extends React.Component {
   };
 
   goToSignIn = () => {
-    console.log(this.props);
     this.props.navigation.navigate("SignIn");
   };
   goToSignUp = () => {
@@ -31,11 +30,17 @@ class Home extends React.Component {
   goToContent = () => {
     this.props.navigation.navigate("Content");
   };
+  goToTodos = () => {
+    this.props.navigation.navigate("Todos");
+  }
 
   renderAuthenticatedButtons = () => (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <View style={{ paddingBottom: 10 }}>
         <Button onPress={this.goToContent} title="Content" />
+      </View>
+      <View style={{ paddingBottom: 10 }}>
+        <Button onPress={this.goToTodos} title="Todos" />
       </View>
       <View style={{ paddingBottom: 10 }}>
         <Button onPress={this.signOut} title="Sign Out" />
@@ -45,9 +50,6 @@ class Home extends React.Component {
 
   renderUnauthenticatedButtons = () => (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <View style={{ paddingBottom: 10 }}>
-        <Button onPress={this.goToContent} title="Content" />
-      </View>
       <View style={{ paddingBottom: 10 }}>
         <Button onPress={this.goToSignIn} title="Sign In" />
       </View>

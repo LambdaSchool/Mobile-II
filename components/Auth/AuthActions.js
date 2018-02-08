@@ -13,10 +13,6 @@ export const SIGN_OUT_PENDING = 'SIGN_IN_PENDING';
 export const SIGN_OUT_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_OUT_ERROR = 'SIGN_IN_ERROR';
 
-export const FETCH_CONTENT_PENDING = 'FETCH_CONTENT_PENDING';
-export const FETCH_CONTENT_SUCCESS = 'FETCH_CONTENT_SUCCESS';
-export const FETCH_CONTENT_ERROR = 'FETCH_CONTENT_ERROR';
-
 export const GET_STORED_TOKEN_PENDING = 'GET_STORED_TOKEN_PENDING';
 export const GET_STORED_TOKEN_SUCCESS = 'GET_STORED_TOKEN_SUCCESS';
 export const GET_STORED_TOKEN_ERROR = 'GET_STORED_TOKEN_ERROR';
@@ -47,8 +43,9 @@ export const signIn = ({email, password}) => dispatch => {
       const token = response.data.token;
       await AsyncStorage.setItem('token', token);
       dispatch({type: SIGN_IN_SUCCESS, token});
-      resolve(token);
+      resolve();
     } catch(error) {
+      console.log(error);
       dispatch({type: SIGN_IN_ERROR, error});
       reject(error);
     }
@@ -78,17 +75,4 @@ export const getStoredToken = () => async dispatch => {
   } catch(error) {
     dispatch({type: GET_STORED_TOKEN_ERROR, error});
   } 
-}
-
-export const fetchContent = () => async (dispatch, getState) => {
-  try {
-    dispatch({type: FETCH_CONTENT_PENDING});
-    const token = getState().authentication.token;
-    console.log('token from state is', token);
-    const response = await axios.get(`${api}/users`, { headers: { authorization: token }});
-    dispatch({type: FETCH_CONTENT_SUCCESS, payload: response.data});
-  } catch(error) {
-    console.log(error.message);
-    dispatch({type: FETCH_CONTENT_ERROR, error});
-  }
 }

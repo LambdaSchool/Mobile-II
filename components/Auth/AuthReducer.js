@@ -9,9 +9,6 @@ import {
   SIGN_OUT_PENDING,
   SIGN_OUT_SUCCESS,
   SIGN_OUT_ERROR,
-  FETCH_CONTENT_PENDING,
-  FETCH_CONTENT_SUCCESS,
-  FETCH_CONTENT_ERROR,
   GET_STORED_TOKEN_PENDING,
   GET_STORED_TOKEN_SUCCESS,
   GET_STORED_TOKEN_ERROR
@@ -30,10 +27,13 @@ function authReducer(state = initialState, action) {
       return { ...state, token: undefined, error: action.error };
 
     case SIGN_IN_PENDING:
+      console.log(1);
       return state;
     case SIGN_IN_SUCCESS:
+      console.log(2);
       return { ...state, token: action.token };
     case SIGN_IN_ERROR:
+      console.log(3);
       return { ...state, token: undefined, error: action.error };
 
     case SIGN_OUT_PENDING:
@@ -49,14 +49,6 @@ function authReducer(state = initialState, action) {
       return { ...state, token: action.token};
     case GET_STORED_TOKEN_ERROR:
       return { ...state, error: action.error};
-
-    case FETCH_CONTENT_PENDING:
-      return { ...state, isPending: true };
-    case FETCH_CONTENT_SUCCESS: 
-      return { ...state, users: action.payload, isPending: false }
-    case FETCH_CONTENT_ERROR: 
-      return {...state, error: action.error, isPending: false };
-    
     default:
       return state;
   }

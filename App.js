@@ -14,6 +14,7 @@ import Home from './components/Home';
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
 import Content from './components/Todos/Content';
+import Todos from './components/Todos/Todos';
 
 const rootReducer = combineReducers({authentication, todos});
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -23,7 +24,8 @@ const RootStack = StackNavigator(
     SignIn: {screen: SignIn},
     SignUp: {screen: SignUp},
     Home: {screen: Home},
-    Content: {screen: Content}
+    Content: {screen: Content},
+    Todos: {screen: Todos}
   },
   {
     initialRouteName: 'Home'
