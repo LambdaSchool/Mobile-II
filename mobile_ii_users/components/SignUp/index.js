@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput, AsyncStorage } from 'react-native';
 import styles from '../Styles';
+import axios from 'axios';
+const postUrl = 'https://mobile-server-ii.herokuapp.com/users';
 
 class SignUp extends Component {
     constructor() {
@@ -8,22 +10,26 @@ class SignUp extends Component {
         this.state = {
             email: '',
             password: '',
-            user: {
-                email: '',
-                password: '',
-            }
         }
     }
-    handleEmailChange = () => {
-
+    handleEmailChange = (text) => {
+        this.setState({ email: text });
     }
 
-    handlePasswordChange = () => {
-
+    handlePasswordChange = (text) => {
+        this.setState({ password: text });
     }
 
     handleSubmit = () => {
-
+        axios.post(postUrl, { email: this.state.email, password: this.state.password })
+            .then(res => {
+                // console.log(res.data);
+                AsyncStorage.setItem('JWT', JSON.stringify(res.data.token));
+                this.props.navigation.navigate('Contents');
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
     }
 
     componentDidMount() {
@@ -38,19 +44,17 @@ class SignUp extends Component {
                     <TextInput
                         style={styles.shortInput}
                         onChangeText={this.handleEmailChange}
-                        value={this.state.email}
                         underlineColorAndroid='transparent'
                         placeholder="email"
                     />
                     <TextInput
                         style={styles.shortInput}
                         onChangeText={this.handlePasswordChange}
-                        value={this.state.password}
                         underlineColorAndroid='transparent'
                         placeholder="password"
                     />
                 </View>
-                <Button title='Sign Up' />
+                <Button title='Sign Up' onPress={this.handleSubmit} />
             </View>
         );
     }
