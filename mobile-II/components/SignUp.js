@@ -1,14 +1,9 @@
 import React from 'React';
 import axios from 'axios';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TextInput,
-    Button,
-    AsyncStorage
-} from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, AsyncStorage } from 'react-native';
+
 const URL = 'https://mobile-server-ii.herokuapp.com/';
+
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
@@ -28,6 +23,11 @@ class SignUp extends React.Component {
         axios
             .post(`${URL}users`, {email, password})
             .then(response => {
+                if (response.data.code === 11000) {
+                    return this.setState({
+                        error: 'email is already taken'
+                    });
+                }
                 const {token} = response.data;
                 AsyncStorage.setItem('token', token);
                 // set token on local storage.

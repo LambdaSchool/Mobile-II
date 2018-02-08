@@ -8,7 +8,9 @@ import {
     Button,
     AsyncStorage
 } from 'react-native';
+
 const URL = 'https://mobile-server-ii.herokuapp.com/';
+
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +41,7 @@ class SignUp extends React.Component {
             })
             .catch(error => {
                 console.log(error);
-                this.setState({error: 'Error on  sign up'});
+                this.setState({error: 'incorrect email/password'});
                 setTimeout(() => {
                     this.setState({error: null});
                 }, 3000);
