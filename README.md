@@ -61,7 +61,7 @@ Later when you want to make an authenticated request to the API you will need to
 AsyncStorage.getItem('token').then((token) => { // retrieve the token from "localStorage"
   axios.get('https://mobile-server-ii.herokuapp.com/users', {
     headers: {
-      authorization: token, // attach the token as a header
+      authorization: token, // attach the token as a header
     }
   }).then((response) => {
     // Update state in here
