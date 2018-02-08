@@ -23,10 +23,10 @@ class SignUp extends React.Component {
         this.setState({[type]: text});
     };
 
-    signUp = () => {
+    signIn = () => {
         const {email, password} = this.state;
         axios
-            .post(`${URL}users`, {email, password})
+            .post(`${URL}signin`, {email, password})
             .then(response => {
                 const {token} = response.data;
                 AsyncStorage.setItem('token', token);
@@ -35,7 +35,7 @@ class SignUp extends React.Component {
                     .props
                     .navigation
                     .navigate('Contents')
-                // navigate on successfull signup.
+                // navigate on successfull signIn.
             })
             .catch(error => {
                 console.log(error);
@@ -52,7 +52,9 @@ class SignUp extends React.Component {
         return (
             <View style={container}>
 
-                <Text style={heading}>Create an Account</Text>
+                <Text style={heading}>
+                    Sign in to an Account
+                </Text>
                 <TextInput
                     onChangeText={(text) => this.handleInputChange(text, 'email')}
                     style={inputStyle}
@@ -61,7 +63,7 @@ class SignUp extends React.Component {
                     onChangeText={(text) => this.handleInputChange(text, 'password')}
                     style={inputStyle}
                     placeholder="Password"/>
-                <Button onPress={() => this.signUp()} title="Sign Up"/> 
+                <Button onPress={() => this.signIn()} title="Sign In"/> 
                 {this.state.error !== null ? <Text style={errorText}>{this.state.error}</Text> : null}
             </View>
         )
