@@ -14,7 +14,7 @@ export default class Content extends React.Component {
     constructor() {
         super();
         this.state = {
-            users : [],
+            users: [],
         };
     }
 
@@ -40,17 +40,16 @@ export default class Content extends React.Component {
         return (
             <View>
                 <Text>List of Users of this Service</Text>
-                { this.state.users !== null ?
                 <FlatList
                     data={this.state.users}
-                    renderItem={({item, index}) => {
+                    renderItem={({ item, index }) => {
                         return (
                             <View key = {index}>
-                                <Text>{item.username}</Text>
+                                <Text>{item.email}</Text>
                             </View>
                         );
                     }}
-                /> : <Text>No Users Currently</Text> }
+                />
             </View>
         );
     }
