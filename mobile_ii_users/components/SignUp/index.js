@@ -10,6 +10,7 @@ class SignUp extends Component {
         this.state = {
             email: '',
             password: '',
+            error: null,
         }
     }
     handleEmailChange = (text) => {
@@ -24,11 +25,17 @@ class SignUp extends Component {
         axios.post(postUrl, { email: this.state.email, password: this.state.password })
             .then(res => {
                 // console.log(res.data);
-                AsyncStorage.setItem('JWT', JSON.stringify(res.data.token));
+                AsyncStorage.setItem('JWT', res.data.token);
                 this.props.navigation.navigate('Contents');
             })
             .catch(err => {
                 console.log(err.message);
+                this.setState({
+                    error: 'Error on sign up',
+                });
+                setTimeout(() => {
+                    this.setState({ error: null })
+                }, 3000);
             });
     }
 
@@ -55,6 +62,7 @@ class SignUp extends Component {
                     />
                 </View>
                 <Button title='Sign Up' onPress={this.handleSubmit} />
+                {this.state.error !== null ? <Text>{this.state.error}</Text> : null}
             </View>
         );
     }

@@ -24,7 +24,7 @@ class SignIn extends Component {
         axios.post(postUrl, { email: this.state.email, password: this.state.password })
             .then(res => {
                 // console.log(res.data);
-                AsyncStorage.setItem('JWT', JSON.stringify(res.data.token));
+                AsyncStorage.setItem('JWT', res.data.token);
                 this.props.navigation.navigate('Contents');
             })
             .catch(err => {

@@ -55,12 +55,12 @@ const Routes = StackNavigator({
     }
   },
 },
-  // { // This Hides the Nav Bar Ontop
-  //   headerMode: 'none',
-  //   navigationOptions: {
-  //     headerVisible: false,
-  //   }
-  // }
+  { // This Hides the Nav Bar Ontop
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
 );
 
 export default class App extends Component {
