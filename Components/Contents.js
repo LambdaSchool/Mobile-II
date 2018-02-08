@@ -1,38 +1,58 @@
-
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 
 
-const Contents = () => {
-    return (
-        <View style={headerContainer}>
-            <TouchableOpacity>
-                <Image
-                    style={imageProper}
-                    source={{ uri: 'http://www.stickpng.com/assets/images/588a64e7d06f6719692a2d11.png' }}
-                />
-            </TouchableOpacity>
-        </View>
-    )
+class Contents extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        const token = AsyncStorage.getItem(token);
+        token
+            .then(parsedToken => {
+                axios.get(URL, {
+                    headers: {
+                        authorization: token
+                    }
+                })
+                    .then(response => {
+                        const users = res.data;
+                        this.setState({
+                            users,
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.setState({ error: 'Er' })
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    render() {
+        return (
+            <View style={container} >
+                <Text>
+                    Hello from Contents</Text>
+            </View>
+        );
+    }
 };
-
 const styles = StyleSheet.create({
-    headerContainer: {
+    container: {
+        flex: 1,
         flexDirection: 'row',
         backgroundColor: '#56D2C7',
         justifyContent: 'center',
         height: 50,
         marginTop: 25,
     },
-    imageProper: {
-        marginHorizontal: 8,
-        marginVertical: 8,
-        width: 30,
-        height: 30
-    },
 
 });
 
-const { headerContainer, imageProper, searchBar } = styles;
+const { container } = styles;
 
 export default Contents;

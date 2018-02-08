@@ -1,32 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Signin from './Components/Signin';
 import Signup from './Components/Signup';
 import Contents from './Components/Contents';
 
-class App extends React.Component {
-  render() {
-    return (
-      <View style={container}>
 
-        {/* <Image
-          style={image}
-          source={{ uri: 'http://www.tuxxin.com/wp-content/uploads/2013/09/home-icon.png' }}
-        />
-        <View style={buttonsContainer} >
-          <TouchableOpacity style={button}>
-            <Text style={buttonText}>Sign Up</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={button}>
-            <Text style={buttonText}>Sign In</Text>
-          </TouchableOpacity>
-        </View> */}
-        <Signin />
+componentWillUnmount = () => {
+}
 
+
+const Home = props => {
+  console.log('PROPS', props);
+  const { navigate } = props.navigation
+  return (
+    <View style={container}>
+      <Image
+        style={image}
+        source={{ uri: 'http://www.tuxxin.com/wp-content/uploads/2013/09/home-icon.png' }}
+      />
+      <View style={buttonsContainer} >
+        <TouchableOpacity style={button} onPress={() => navigate('Signup')}>
+          <Text style={buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={button} onPress={() => navigate('Signin')}>
+          <Text style={buttonText} >Sign In</Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
+
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -63,9 +66,9 @@ const styles = StyleSheet.create({
 const { container, buttonsContainer, image, buttonText, button } = styles;
 
 const Routes = StackNavigator({
-  Home: { screen: App },
-  SignIn: { screen: Signin },
-  SignUp: { screen: Signup },
+  Home: { screen: Home },
+  Signin: { screen: Signin },
+  Signup: { screen: Signup },
   Contents: { screen: Contents }
 })
 

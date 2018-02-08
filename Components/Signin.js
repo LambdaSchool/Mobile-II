@@ -7,6 +7,7 @@ class Signin extends Component {
         this.state = { text: '' };
     }
 
+
     render() {
         return (
             <View style={{ padding: 10 }}>
