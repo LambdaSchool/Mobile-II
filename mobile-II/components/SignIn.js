@@ -1,13 +1,6 @@
 import React from 'React';
 import axios from 'axios';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TextInput,
-    Button,
-    AsyncStorage
-} from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, AsyncStorage } from 'react-native';
 
 const URL = 'https://mobile-server-ii.herokuapp.com/';
 
@@ -63,6 +56,7 @@ class SignUp extends React.Component {
                     placeholder="Email"/>
                 <TextInput
                     onChangeText={(text) => this.handleInputChange(text, 'password')}
+                    secureTextEntry={true}
                     style={inputStyle}
                     placeholder="Password"/>
                 <Button onPress={() => this.signIn()} title="Sign In"/> 

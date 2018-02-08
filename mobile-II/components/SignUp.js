@@ -59,6 +59,7 @@ class SignUp extends React.Component {
                     placeholder="Email"/>
                 <TextInput
                     onChangeText={(text) => this.handleInputChange(text, 'password')}
+                    secureTextEntry={true}
                     style={inputStyle}
                     placeholder="Password"/>
                 <Button onPress={() => this.signUp()} title="Sign Up"/> 
