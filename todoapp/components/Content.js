@@ -4,7 +4,8 @@ import {
     Text,
     TextInput,
     Button,
-    Flatlist
+    AsyncStorage,
+    FlatList
 } from 'react-native';
 
 const ROOT_URL = 'https://mobile-server-ii.herokuapp.com';
@@ -27,9 +28,7 @@ export default class Content extends React.Component {
                         }
                     })
                     .then(res => {
-                        if (res !== null) {
                             this.setState({ users: res });
-                        }
                     })
             })
             .catch(error => {
@@ -41,7 +40,8 @@ export default class Content extends React.Component {
         return (
             <View>
                 <Text>List of Users of this Service</Text>
-                <Flatlist
+                { this.state.users !== null ?
+                <FlatList
                     data={this.state.users}
                     renderItem={({item, index}) => {
                         return (
@@ -50,7 +50,7 @@ export default class Content extends React.Component {
                             </View>
                         );
                     }}
-                />
+                /> : <Text>No Users Currently</Text> }
             </View>
         );
     }

@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios';
-import logo from './images/improvement2.png';
+import logo from '../images/improvement2.png';
 
 const ROOT_URL = 'https://mobile-server-ii.herokuapp.com';
 
-class SignUp extends React.Component {
+export default class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -82,4 +82,3 @@ class SignUp extends React.Component {
           
           });
           const { container, icon, input, button } = styles;
-export default SignUp;

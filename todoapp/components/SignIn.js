@@ -10,7 +10,7 @@ import {
     StyleSheet
 } from 'react-native';
 import axios from 'axios';
-import logo from './images/improvement2.png';
+import logo from '../images/improvement2.png';
 
 const ROOT_URL = 'https://mobile-server-ii.herokuapp.com';
 

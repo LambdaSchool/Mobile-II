@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-import SignUp from './SignUp';
-import SignIn from './SignIn';
-import Content from './Content';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import Content from './components/Content';
 import glassblowing from './images/smallGlassblowing.jpg';
 
 const Home = props => {
