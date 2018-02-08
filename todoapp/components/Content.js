@@ -7,6 +7,7 @@ import {
     AsyncStorage,
     FlatList
 } from 'react-native';
+import axios from 'axios';
 
 const ROOT_URL = 'https://mobile-server-ii.herokuapp.com';
 
@@ -41,10 +42,10 @@ export default class Content extends React.Component {
             <View>
                 <Text>List of Users of this Service</Text>
                 <FlatList
-                    data={this.state.users}
+                    data={this.state.users.data}
                     renderItem={({ item, index }) => {
                         return (
-                            <View key = {index}>
+                            <View key = {item.id}>
                                 <Text>{item.email}</Text>
                             </View>
                         );
