@@ -16,7 +16,6 @@ class Home extends React.Component {
         ]);
       })
       .catch(err => {
-        console.log(err);
         Alert.alert("Sign Out failed", "Sign out failed.", [{ text: "OK" }]);
       });
   };

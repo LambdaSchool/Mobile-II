@@ -27,13 +27,10 @@ function authReducer(state = initialState, action) {
       return { ...state, token: undefined, error: action.error };
 
     case SIGN_IN_PENDING:
-      console.log(1);
       return state;
     case SIGN_IN_SUCCESS:
-      console.log(2);
       return { ...state, token: action.token };
     case SIGN_IN_ERROR:
-      console.log(3);
       return { ...state, token: undefined, error: action.error };
 
     case SIGN_OUT_PENDING:

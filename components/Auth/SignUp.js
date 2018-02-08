@@ -31,7 +31,6 @@ class SignUp extends React.Component {
       this.successAlert();
       this.props.navigation.navigate('Content');
     } catch(error) {
-      console.log(error);
       this.failAlert();
     }
   }

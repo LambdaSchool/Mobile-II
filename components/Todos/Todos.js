@@ -38,7 +38,6 @@ class Todos extends Component {
   removeCompleted = () => {
     const todos = this.props.todos.list.slice();
     const filteredTodos = todos.filter(todo => todo.completed);
-    console.log(filteredTodos);
     filteredTodos.forEach(todo => this.props.deleteTodo(todo._id));
   };
 

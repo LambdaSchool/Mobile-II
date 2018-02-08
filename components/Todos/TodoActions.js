@@ -32,7 +32,6 @@ export const fetchUsers = () => async (dispatch, getState) => {
     const response = await axios.get(`${api}/users`, { headers: { authorization: token }});
     dispatch({type: FETCH_USERS_SUCCESS, payload: response.data});
   } catch(error) {
-    console.log(error.message);
     dispatch({type: FETCH_USERS_ERROR, error});
   }
 }
@@ -46,7 +45,6 @@ export const fetchCurrentTodos = () => async (dispatch, getState) => {
     const todoList = response.data.todos;
     dispatch({type: FETCH_CURRENT_TODOS_SUCCESS, payload: todoList});
   } catch(error) {
-    console.log(error.message);
     dispatch({type: FETCH_CURRENT_TODOS_ERROR, error});
   }
 };
@@ -57,11 +55,9 @@ export const addTodo = (text) => async (dispatch, getState) => {
     const token = getState().authentication.token;
     if (!token) throw 'Not authorized';
     const response = await axios.post(`${api}/todos`, {text}, { headers: { authorization: token }});
-    console.log(response.data);
     const todoList = response.data.todos;
     dispatch({type: ADD_TODO_SUCCESS, payload: todoList});
   } catch(error) {
-    console.log(error.message);
     dispatch({type: ADD_TODO_ERROR, error});
   }
 };
@@ -76,7 +72,6 @@ export const toggleTodo = (id) => async (dispatch, getState) => {
     const todoList = response.data.todos;
     dispatch({type: TOGGLE_TODO_SUCCESS, payload: todoList});
   } catch(error) {
-    console.log(error.message);
     dispatch({type: TOGGLE_TODO_ERROR, error});
   }
 };
@@ -90,7 +85,6 @@ export const deleteTodo = (id) => async (dispatch, getState) => {
     const todoList = response.data.todos;
     dispatch({type: DELETE_TODO_SUCCESS, payload: todoList});
   } catch(error) {
-    console.log(error.message);
     dispatch({type: DELETE_TODO_ERROR, error});
   }
 };

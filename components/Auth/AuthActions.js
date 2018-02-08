@@ -45,7 +45,6 @@ export const signIn = ({email, password}) => dispatch => {
       dispatch({type: SIGN_IN_SUCCESS, token});
       resolve();
     } catch(error) {
-      console.log(error);
       dispatch({type: SIGN_IN_ERROR, error});
       reject(error);
     }
