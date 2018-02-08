@@ -4,13 +4,18 @@ import { Provider } from 'react-redux';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { StackNavigator } from 'react-navigation';
+
+/* reducers */
 import authentication from './components/Auth/AuthReducer';
+import todos from './components/Todos/TodoReducer';
+
+/* components */
 import Home from './components/Home';
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
-import Content from './components/Content';
+import Content from './components/Todos/Content';
 
-const rootReducer = combineReducers({authentication});
+const rootReducer = combineReducers({authentication, todos});
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const RootStack = StackNavigator(
