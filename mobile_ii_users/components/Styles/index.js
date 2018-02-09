@@ -7,6 +7,12 @@ export default styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    todoContainer: {
+        // flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     navContainer: {
         flex: 0,
         width: '100%',
@@ -41,6 +47,11 @@ export default styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 10,
     },
+    instructions: {
+        fontSize: 12,
+        fontStyle: 'italic',
+        marginBottom: 10,
+    },
     shortInput: {
         paddingLeft: 8,
         width: '100%',
@@ -70,7 +81,7 @@ export default styles = StyleSheet.create({
         marginBottom: 20,
         marginTop: 40,
     },
-    uncomplete: {
+    incomplete: {
         marginTop: 20,
         fontSize: 30,
         fontWeight: 'normal',
