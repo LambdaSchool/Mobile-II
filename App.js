@@ -4,10 +4,8 @@ import { StackNavigator } from 'react-navigation';
 import Signin from './Components/Signin';
 import Signup from './Components/Signup';
 import Contents from './Components/Contents';
+import axios from 'axios';
 
-
-componentWillUnmount = () => {
-}
 
 
 const Home = props => {
@@ -25,6 +23,9 @@ const Home = props => {
         </TouchableOpacity>
         <TouchableOpacity style={button} onPress={() => navigate('Signin')}>
           <Text style={buttonText} >Sign In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={button} onPress={() => navigate('Contents')}>
+          <Text style={buttonText} >Contents</Text>
         </TouchableOpacity>
       </View>
 

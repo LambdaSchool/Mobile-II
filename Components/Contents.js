@@ -1,17 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+const URL = 'https://mobile-server-ii.herokuapp.com';
 
 
 class Contents extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            users: [],
+            error: null
+        }
     }
 
     componentDidMount() {
         const token = AsyncStorage.getItem(token);
         token
             .then(parsedToken => {
-                axios.get(URL, {
+                axios.get(`{URL}/users`, {
                     headers: {
                         authorization: token
                     }
@@ -24,7 +29,7 @@ class Contents extends React.Component {
                     })
                     .catch(err => {
                         console.log(err);
-                        this.setState({ error: 'Er' })
+                        this.setState({ error: 'Error fetching users' })
                     });
             })
             .catch(err => {

@@ -8,8 +8,9 @@ class Signup extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
-        };
+            password: '',
+            error: null
+        }
     };
 
     handleInputChange = (text, type) => {
@@ -22,10 +23,9 @@ class Signup extends Component {
 
         axios.post(`${URL}/users`, { email, password })
             .then(response => {
-                console.log(response);
                 const { token } = response.data;
                 AsyncStorage.setItem('token', token);
-                this.props.navigation.navigate('Content')
+                this.props.navigation.navigate('Contents')
             })
             .catch(error => {
                 console.log(error);
