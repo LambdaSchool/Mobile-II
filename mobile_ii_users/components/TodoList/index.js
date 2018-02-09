@@ -20,36 +20,33 @@ class TodoList extends Component {
 
     componentDidMount() {
         let JWT = '';
-        let retrievedTodos = [];
-        // Gathering Data from Local Storage First if Available
-        const localTodos = AsyncStorage.getItem('todos', (error, result) => {
-            if (error) console.log(error);
-            retrievedTodos = JSON.parse(result);
-        });
-        // Gathering Data from Web If available, otherwise using Local Storage
         const token = AsyncStorage.getItem('JWT', (err, result) => {
             if (err) console.log(err);
             JWT = String(result);
             axios.get(`${postUrl}${userRoute}`, { headers: { authorization: JWT } })
                 .then(res => {
-                    retrievedTodos = res.data.todos
+                    this.setState({ todos: res.data.todos, JWT });
                 })
                 .catch(err => {
                     console.log('Could not get User Object and Todos from Server, Using Local Data Instead!');
+                    // const localTodos = AsyncStorage.getItem('todos', (error, result) => {
+                    //     if (error) console.log(error);
+                    //     let retrievedTodos = JSON.parse(result);
+                    //     this.setState({ todos: retrievedTodos });
+                    // });
                 });
         });
-        this.setState({ todos: retrievedTodos, JWT });
     };
 
-    componentWillUnmount() {
-        const todos = Array.from(this.state.todos);
-        if (todos != null) {
-            AsyncStorage.setItem('todos', JSON.stringify(todos), answer => {
-                if (answer === null) { console.log(`Success setting items: ${JSON.stringify(todos)}`) }
-                else { console.log(answer, 'Something went wrong setting items'); }
-            });
-        }
-    };
+    // componentWillUnmount() {
+    //     const todos = Array.from(this.state.todos);
+    //     if (todos != null) {
+    //         AsyncStorage.setItem('todos', JSON.stringify(todos), answer => {
+    //             if (answer === null) { console.log(`Success setting items: ${JSON.stringify(todos)}`) }
+    //             else { console.log(answer, 'Something went wrong setting items'); }
+    //         });
+    //     }
+    // };
 
     handleButtonPress = () => {
         let JWT = this.state.JWT;
@@ -87,15 +84,15 @@ class TodoList extends Component {
             })
             .catch(err => {
                 console.log(err);
-            });
+            })
 
         this.setState(prevState => {
             let oldTodos = prevState.todos;
             oldTodos[id].completed = !oldTodos[id].completed;
             return {
                 todos: oldTodos
-            };
-        });
+            }
+        })
     }
 
     handleDelete = (id) => {
