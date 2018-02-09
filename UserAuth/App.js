@@ -3,32 +3,56 @@ import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-na
 import { StackNavigator } from 'react-navigation';
 import { SignIn, SignUp, Content } from './components/index';
 
-const App = (props) => {
-  return (
-    <View style={container}>
-      <Text style={header}>Todo List</Text>
-      <View style={buttonWrapper}>
-        <TouchableOpacity 
-          style={button} 
-          onPress={() => props.navigation.navigate('SignIn')} 
-        >
-          <Text style={buttonText}>Sign In</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={button} 
-          onPress={() => props.navigation.navigate('SignUp')} 
-        >
-          <Text style={buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={button} 
-          onPress={() => props.navigation.navigate('Content')} 
-        >
-          <Text style={buttonText}>Todos</Text>
-        </TouchableOpacity>
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      error: null
+    }
+  }
+
+  handleTodoPress = async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      this.props.navigation.navigate('Content');
+    } else {
+      this.setState({ error: 'Must Sign In' });
+      setTimeout(() => {
+        this.setState({ error: null });
+      }, 2000);
+      return undefined;
+    }
+  }
+
+  render() {
+    return (
+      <View style={container}>
+        <Text style={header}>Todo List</Text>
+        <View style={buttonWrapper}>
+          <TouchableOpacity 
+            style={button} 
+            onPress={() => this.props.navigation.navigate('SignIn')} 
+          >
+            <Text style={buttonText}>Sign In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={button} 
+            onPress={() => this.props.navigation.navigate('SignUp')} 
+          >
+            <Text style={buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={button} 
+            onPress={() => this.handleTodoPress()} 
+          >
+            <Text style={buttonText}>Todos</Text>
+          </TouchableOpacity>
+          {this.state.error ? <Text style={errorText}>{this.state.error}</Text> : null}
+        </View>
+        
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -57,10 +81,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     alignItems: 'center'
+  },
+  errorText: {
+    fontSize: 20,
+    color: 'red',
+    textAlign: 'center'
   }
 });
 
-const { container, header, buttonWrapper, button, buttonText } = styles;
+const { container, header, buttonWrapper, button, buttonText, errorText } = styles;
 
 const Routes = StackNavigator({
   Home: { screen: App },

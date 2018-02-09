@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { 
-  StyleSheet, 
-  View, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
   AsyncStorage
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
@@ -15,34 +15,45 @@ class SignIn extends Component {
     super();
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: null
     };
   }
 
   handleSignIn = () => {
     const url = 'https://mobile-server-ii.herokuapp.com';
     const { email, password } = this.state;
+    if (!email || !password) {
+      this.setState({ error: "Can't be blank" });
+      this.setState({ email: '', password: '' });
+      setTimeout(() => {
+        this.setState({ error: null });
+      }, 2000);
+      return undefined;
+    }
     axios.post(`${url}/signin`, { email, password })
       .then(res => {
         const token = this.getToken('token');
-        const currentUser = this.getUser('currentUser');
-        if (!token) return AsyncStorage.setItem('token', res.data.token);
-        if (token !== res.data.token) return AsyncStorage.setItem('token', res.data.token);
-        if (!currentUser) return AsyncStorage.setItem('currentUser', JSON.stringify(currentUser));
-        if (currentUser.email !== res.data.user.email) return AsyncStorage.setItem('currentUser', JSON.stringify(res.data.user));
+        if (!token) AsyncStorage.setItem('token', res.data.token);
+        if (token !== res.data.token) AsyncStorage.setItem('token', res.data.token);
         this.setState({ email: '', password: '' });
-      })
-      .then(() => {
         this.props.navigation.navigate('Content');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: "Error on Sign In" });
+        this.setState({ email: '', password: '' });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 2000);
+      });
   }
 
   async getToken(key) {
     try {
       const token = await AsyncStorage.getItem('token');
       return token;
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
@@ -51,7 +62,7 @@ class SignIn extends Component {
     try {
       const currentUser = await AsyncStorage.getItem('currentUser');
       return JSON.parse(currentUser);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
@@ -59,11 +70,12 @@ class SignIn extends Component {
   render() {
     return (
       <View style={container}>
-        <TextInput style={textInput} placeholder="Email" onChangeText={(text) => this.setState({ email: text })} value={this.state.email}/>
-        <TextInput secureTextEntry={true} style={textInput} placeholder="Password" onChangeText={(text) => this.setState({ password: text })} value={this.state.password}/>
+        <TextInput style={textInput} placeholder="Email" onChangeText={(text) => this.setState({ email: text })} value={this.state.email} />
+        <TextInput secureTextEntry={true} style={textInput} placeholder="Password" onChangeText={(text) => this.setState({ password: text })} value={this.state.password} />
         <TouchableOpacity style={button} onPress={this.handleSignIn}>
           <Text style={buttonText} >Sign In</Text>
         </TouchableOpacity>
+        {this.state.error ? <Text style={errorText}>{this.state.error}</Text> : null}
       </View>
     );
   }
@@ -93,9 +105,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     alignItems: 'center'
+  },
+  errorText: {
+    fontSize: 20,
+    color: 'red'
   }
 });
 
-const { container, textInput, button, buttonText } = styles;
+const { container, textInput, button, buttonText, errorText } = styles;
 
 export default SignIn;
