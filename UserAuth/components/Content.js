@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { StyleSheet, View, Text, AsyncStorage, FlatList, TouchableOpacity, TextInput } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 
 class Content extends Component {
   constructor() {
@@ -21,7 +20,6 @@ class Content extends Component {
           Authorization: token
         }
       });
-      console.log(res.data);
       this.setState(prevState => {
         return {
           todos: res.data.todos
@@ -39,6 +37,7 @@ class Content extends Component {
 
   handleAddTodo = async () => {
     try {
+      if (!this.state.todoText) return undefined;
       const token = await AsyncStorage.getItem('token');
       const res = await axios.post('https://mobile-server-ii.herokuapp.com/todos', {
         text: this.state.todoText
@@ -108,9 +107,8 @@ class Content extends Component {
         <Text style={header}>{this.state.todos.length > 0 ? 'You got stuff to do' : 'You are free'}</Text>
 
         {this.state.todos.length > 0 ? (
-          <ScrollView style={todoList}>
           <FlatList
-            
+            style={todoList}
             data={this.state.todos}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => {
@@ -127,7 +125,6 @@ class Content extends Component {
               )
             }}
           />
-          </ScrollView>
         ) : null}
         <View style={textInputContainer}>
           <TextInput
