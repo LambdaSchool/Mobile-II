@@ -29,7 +29,7 @@ const SignInHeader = () => {
 const ContentsHeader = () => {
     return (
         <View style={styles.navContainer}>
-            <Text style={styles.navHeader} > Contents </Text >
+            <Text style={styles.navHeader} > Members List </Text >
         </View>
     );
 }

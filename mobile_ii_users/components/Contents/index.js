@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, TextInput, AsyncStorage, FlatList, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, AsyncStorage, FlatList, ScrollView } from 'react-native';
 import styles from '../Styles';
 import axios from 'axios';
 const postUrl = 'https://mobile-server-ii.herokuapp.com/users';

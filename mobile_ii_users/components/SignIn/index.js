@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, TextInput, AsyncStorage } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, AsyncStorage, KeyboardAvoidingView } from 'react-native';
 import styles from '../Styles';
 import axios from 'axios';
 const postUrl = 'https://mobile-server-ii.herokuapp.com/signin';
@@ -37,7 +37,10 @@ class SignIn extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior="padding"
+            >
                 <Text style={styles.formHeader}>Please sign in</Text>
                 <View style={styles.formWrapper}>
                     <TextInput
@@ -48,13 +51,17 @@ class SignIn extends Component {
                     />
                     <TextInput
                         style={styles.shortInput}
+                        secureTextEntry={true}
                         onChangeText={this.handlePasswordChange}
+                        onSubmitEditing={this.handleSubmit}
                         underlineColorAndroid='transparent'
                         placeholder="password"
                     />
                 </View>
-                <Button title='Sign In' onPress={this.handleSubmit} />
-            </View>
+                <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+                    <Text style={styles.buttonText}>Sign In</Text>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
         );
     }
 }
