@@ -24,7 +24,6 @@ class SignIn extends Component{
             password:e
         })
     }
-
     signin= async() =>{
        const email = this.state.email;
        const password = this.state.password;
