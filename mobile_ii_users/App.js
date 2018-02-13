@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import styles from './components/Styles';
